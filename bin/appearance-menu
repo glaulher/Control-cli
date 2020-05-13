@@ -14,7 +14,7 @@ MAXFONTSIZE=72
 STATUSVAR=1
 CANCELSTATUS=0
 SELECTEDITEM=""
-TEXTEDITOR=$EDITOR
+TEXTEDITOR=/bin/nano
 
 # Service messages section
 # Wrong Option
