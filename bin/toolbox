@@ -21,23 +21,23 @@ CLIFMNOTINSTMSG="No cli filemanager is installed and Apt seems to be in use"
 INSTALLINGTASKMANMSG="Installing htop to manage tasks"
 TASKMANNOTINSTMSG="Bashtop is not installed and Pacman seems to be in use"
 # File Search (Rifle)
-RIFLENOTINSTMSG="Rifle is not installed and Pacman seems to be in use"
+RIFLENOTINSTMSG="Rifle is not installed and Apt seems to be in use"
 # Web Browser (Links)
 INSTALLINGCLIBRWOSMSG="Installing links to surf the web"
-CLIBROWSNOTINSTMSG="No cli browser installed and Apt seems to be in use"
+CLIBROWSNOTINSTMSG="No cli browser installed and  seems to be in use"
 # Web Brouser (w3m)
 CLIBROWSW3MTMSG="Shift + u: Enter new address. q: Exit"
-# Apt
+# 
 UPDATEMSG="Update packages"
 # inxi
 INSTALLINGINXIMSG="Installing inxi to display system information"
-INXINOTINSTMSG="inxi is not installed and Pacman seems to be in use"
+INXINOTINSTMSG="inxi is not installed and Apt seems to be in use"
 # cpupower
 INSTALLINGCPUPOWERMSG="Installing cpupower to display frequency-info"
-CPUPOWERNOTINSTMSG="cpupower is not installed and Pacman seems to be in use"
+CPUPOWERNOTINSTMSG="cpupower is not installed and Apt seems to be in use"
 # cmus
 INSTALLINGCMUSMSG="Installing cmus to play music"
-CMUSNOTINSTMSG="cmus is not installed and Pacman seems to be in use"
+CMUSNOTINSTMSG="cmus is not installed and Apt seems to be in use"
 
 # =======================
 # Main Menu functions
@@ -46,9 +46,9 @@ function package_manager_ui {
   echo "------------" 
   echo -e "$BLUE $UPDATEMSG $NC" 
   echo "------------" 	
-  if [ -e /usr/bin/apt ] # If file exists
+  if [ -e /usr/bin/ ] # If file exists
   then
-    sudo apt update && sudo apt full-upgrade -y # Run it
+    sudo  update && sudo  full-upgrade -y # Run it
   fi
 }
 
@@ -65,7 +65,7 @@ function cli_filemanager {
 	else		
 			echo "$CLIFMNOTINSTMSG"
 		
-			sudo apt install -y ranger && ranger
+			sudo  install -y ranger && ranger
     fi
 }
 
@@ -86,11 +86,9 @@ function cli_browser {
   then
 		lynx
 	else
-    echo "$INSTALLINGCLIBRWOSMSG"
-		
-			echo "$CLIBROWSNOTINSTMSG"
-		
-			sudo apt install -y links && links		
+            echo "$INSTALLINGCLIBRWOSMSG"		
+			echo "$CLIBROWSNOTINSTMSG"		
+			sudo  install -y links && links		
 	fi
 }
 
@@ -100,13 +98,11 @@ function file_finder {
   then
 		rifle "$(find -type f | fzf -e --reverse --prompt="Enter string > " --header="ESC to quit. ")"
 	else
-		echo "$INSTALLINGRNG1MSG"
-		if [ -e /var/lib/pacman/db.lck ]
-    then
-			echo "$RIFLENOTINSTMSG"
-		else
-			sudo pacman -Sy ranger && rifle "$(find -type f | fzf -e --reverse --prompt="Enter string > " --header="ESC to quit. ")"
-		fi
+		echo "$INSTALLINGRNG1MSG"		
+		echo "$RIFLENOTINSTMSG"	
+		
+		sudo apt install fzf ranger -y && rifle "$(find -type f | fzf -e --reverse --prompt="Enter string > " --header="ESC to quit. ")"
+		
 	fi
 }
 
@@ -117,7 +113,7 @@ function taskmanager {
 		htop
 	else
 		echo "$INSTALLINGTASKMANMSG"
-    if [ -e /var/lib/pacman/db.lck ]
+    if [ -e /var/lib/Apt/db.lck ]
     then
       echo "$TASKMANNOTINSTMSG"
     else
@@ -136,7 +132,7 @@ function sysinfo {
     rm -rf .inxi.txt
 	else
 		echo "$INSTALLINGINXIMSG"
-    if [ -e /var/lib/pacman/db.lck ]
+    if [ -e /var/lib/Apt/db.lck ]
     then
       echo "$INXINOTINSTMSG"
     else
@@ -155,11 +151,11 @@ function freqinfo() {
     read -r
   else
     echo "$INSTALLINGCPUPOWERMSG"
-    if [ -e /var/lib/pacman/db.lck ]
+    if [ -e /var/lib/Apt/db.lck ]
     then
       echo "$CPUPOWERNOTINSTMSG"
     else
-    	sudo pacman -Sy cpupower && cpupower frequency-info
+    	sudo Apt -Sy cpupower && cpupower frequency-info
       echo
       echo -e " $RED Displaying frequency-info. To return to ToolBox press ENTER $NC"
       read -r
@@ -176,11 +172,11 @@ function music() {
     cmus
   else
     echo "$INSTALLINGCMUSMSG"
-    if [ -e /var/lib/pacman/db.lck ]
+    if [ -e /var/lib/Apt/db.lck ]
     then
       echo "$CMUSNOTINSTMSG"
     else
-    	sudo pacman -Sy cmus && cmus
+    	sudo apt -Sy cmus && cmus
     fi
   fi
 }
