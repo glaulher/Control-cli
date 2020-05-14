@@ -16,21 +16,19 @@ ERRORMSG="$RED Wrong option $NC"
 TRYAGAINMSG=" Please try again..."
 # File Manager (Ranger)
 INSTALLINGRNG1MSG="Installing ranger to manage files"
-CLIFMNOTINSTMSG="No cli filemanager is installed and Pacman seems to be in use"
+CLIFMNOTINSTMSG="No cli filemanager is installed and Apt seems to be in use"
 # Task Manager (bashtop)
-INSTALLINGTASKMANMSG="Installing bashtop to manage tasks"
+INSTALLINGTASKMANMSG="Installing htop to manage tasks"
 TASKMANNOTINSTMSG="Bashtop is not installed and Pacman seems to be in use"
 # File Search (Rifle)
 RIFLENOTINSTMSG="Rifle is not installed and Pacman seems to be in use"
 # Web Browser (Links)
 INSTALLINGCLIBRWOSMSG="Installing links to surf the web"
-CLIBROWSNOTINSTMSG="No cli browser installed and Pacman seems to be in use"
-# PacUI
-INSTALLINGPACUIMSG="Installing PacUI for package management"
-PACUINOTINSTMSG="PacUI is not installed and Pacman seems to be in use"
-# mhwd-tui
-INSTALLINGMHWDTUIMSG="Installing mhwd-tui to manage kernels and drivers"
-MHWDTUINOTINSTMSG="Mhwd-tui is not installed and Pacman seems to be in use"
+CLIBROWSNOTINSTMSG="No cli browser installed and Apt seems to be in use"
+# Web Brouser (w3m)
+CLIBROWSW3MTMSG="Shift + u: Enter new address. q: Exit"
+# Apt
+UPDATEMSG="Update packages"
 # inxi
 INSTALLINGINXIMSG="Installing inxi to display system information"
 INXINOTINSTMSG="inxi is not installed and Pacman seems to be in use"
@@ -43,36 +41,15 @@ CMUSNOTINSTMSG="cmus is not installed and Pacman seems to be in use"
 
 # =======================
 # Main Menu functions
-# PacUI
+# 
 function package_manager_ui {
-  if [ -e /usr/bin/pacui ] # If file exists
+  echo "------------" 
+  echo -e "$BLUE $UPDATEMSG $NC" 
+  echo "------------" 	
+  if [ -e /usr/bin/apt ] # If file exists
   then
-    pacui # Run it
-  else
-    echo "$INSTALLINGPACUIMSG" # Install Message
-    if [ -e /var/lib/pacman/db.lck ] # If file exists
-    then
-      echo "$PACUINOTINSTMSG" # Not installed Message
-    else
-      sudo pacman -Sy pacui && pacui # Else install package and run it
-    fi
+    sudo apt update && sudo apt full-upgrade -y # Run it
   fi
-}
-
-# mhwd-tui
-function hardware_settings {
-	if [ -e /usr/bin/mhwd-tui ]
-  then
-		mhwd-tui
-	else
-		echo "$INSTALLINGMHWDTUIMSG"
-		if [ -e /var/lib/pacman/db.lck ]
-    then
-			echo "$MHWDTUINOTINSTMSG"
-		else
-			sudo pacman -Sy mhwd-tui && mhwd-tui
-		fi
-	fi
 }
 
 # File Manager
@@ -85,15 +62,11 @@ function cli_filemanager {
 	elif [ -e /usr/bin/mc ]
   then
 		mc
-	else
-		echo "$INSTALLINGRNG1MSG"
-		if [ -e /var/lib/pacman/db.lck ]
-    then
+	else		
 			echo "$CLIFMNOTINSTMSG"
-		else
-			sudo pacman -Sy ranger && ranger
-		fi
-	fi
+		
+			sudo apt install -y ranger && ranger
+    fi
 }
 
 # Web Browser
@@ -106,18 +79,18 @@ function cli_browser {
 		elinks
 	elif [ -e /usr/bin/w3m ]
   then
-		w3m
+        echo "$CLIBROWSW3MTMSG"
+        sleep 2
+		w3m -v
 	elif [ -e /usr/bin/lynx ]
   then
 		lynx
 	else
     echo "$INSTALLINGCLIBRWOSMSG"
-		if [ -e /var/lib/pacman/db.lck ]
-    then
+		
 			echo "$CLIBROWSNOTINSTMSG"
-		else
-			sudo pacman -Sy links && links
-		fi
+		
+			sudo apt install -y links && links		
 	fi
 }
 
@@ -139,16 +112,16 @@ function file_finder {
 
 # Taskmanager
 function taskmanager {
-	if [ -e /usr/bin/bashtop ]
+	if [ -e /usr/bin/htop ]
   then
-		bashtop
+		htop
 	else
 		echo "$INSTALLINGTASKMANMSG"
     if [ -e /var/lib/pacman/db.lck ]
     then
       echo "$TASKMANNOTINSTMSG"
     else
-		  sudo pacman -Sy bashtop && bashtop
+		  sudo apt install htop -y && htop
     fi
 	fi
 }
@@ -159,7 +132,7 @@ function sysinfo {
   then
     sudo inxi -v8 | tee .inxi.txt &>/dev/null
     printf '\33[H\33[2J'
-    < .inxi.txt fzf -i --multi --reverse --info=inline --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " --no-unicode
+    < .inxi.txt fzf -i --multi --reverse --inline-info --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " # --no-unicode
     rm -rf .inxi.txt
 	else
 		echo "$INSTALLINGINXIMSG"
@@ -167,7 +140,7 @@ function sysinfo {
     then
       echo "$INXINOTINSTMSG"
     else
-		  sudo pacman -Sy inxi && inxi -v8 | fzf -i --multi --reverse --info=inline --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " --no-unicode
+		  sudo apt install inxi fzf -y inxi && inxi -v8 | fzf -i --multi --reverse --info=inline --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " # --no-unicode
     fi
 	fi
 }
@@ -271,7 +244,7 @@ case "$choice" in
 function main {
 # Define Menu entries which will be run with the echo command
 E0="\e[1mQ\e[0muit"
-E1="\e[1mP\e[0mackage manager UI"
+E1="\e[1mP\e[0mackage update"
 E2="System \e[1mI\e[0mnformation"
 E3="\e[1mH\e[0mardware and Drivers"
 E4="\e[1mF\e[0mile Manager"
@@ -295,7 +268,7 @@ do
     echo
     echo -e "                      $BG$TC T $NC$BG$TC O $NC$BG$TC O $NC$BG$TC L $NC $BG B $NC $BG O $NC $BG X $NC"
     echo -e " $TC+----------------------------------------------------------------+$NC"
-    echo -e " $TC|$NC    $BG 1 $NC $E1      $TC|$NC    $BG 2 $NC $E2     $TC|$NC"
+    echo -e " $TC|$NC    $BG 1 $NC $E1          $TC|$NC    $BG 2 $NC $E2     $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
     echo -e " $TC|$NC    $BG 3 $NC $E3    $TC|$NC    $BG 4 $NC $E4           $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"

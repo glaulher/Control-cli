@@ -1,0 +1,106 @@
+System:    Host: glaulher Kernel: 4.19.0-8-amd64 x86_64 bits: 64 compiler: gcc v: 8.3.0 Desktop: i3 4.16.1 info: polybar 
+           dm: startx Distro: Debian GNU/Linux 10 (buster) 
+Machine:   Type: Laptop System: LENOVO product: 37722FP v: Lenovo B490 serial: PETR915 Chassis: type: 10 serial: PETR915 
+           Mobo: LENOVO model: 37722FP v: Win8 STD EM DPK TPG serial: INVALID UEFI [Legacy]: LENOVO v: H1ET75WW(1.18) 
+           date: 06/27/2013 
+Battery:   ID-1: BAT0 charge: 23.3 Wh condition: 23.4/38.9 Wh (60%) volts: 12.1/10.8 model: SANYO 45N1043 type: Li-ion 
+           serial: 22688 status: Unknown 
+Memory:    RAM: total: 7.36 GiB used: 4.88 GiB (66.3%) 
+           Array-1: capacity: 16 GiB slots: 2 EC: None max module size: 8 GiB note: est. 
+           Device-1: ChannelA-DIMM0 size: 4 GiB speed: 1600 MT/s type: DDR3 detail: synchronous bus width: 64 bits 
+           total: 64 bits manufacturer: 0194 part-no: SH564128FJ8NZRNSDG serial: 039CD5F8 
+           Device-2: ChannelB-DIMM0 size: 4 GiB speed: 1600 MT/s type: DDR3 detail: synchronous bus width: 64 bits 
+           total: 64 bits manufacturer: 0194 part-no: SH564128FJ8NZRNSDG serial: 06026D16 
+PCI Slots: Slot: 1 type: x1 PCI Express ExpressCard Slot status: Available length: Other 
+           Slot: N/A type: Media Card Slot status: Available length: Other 
+CPU:       Topology: Dual Core model: Intel Core i3-3110M bits: 64 type: MT MCP arch: Ivy Bridge family: 6 model-id: 3A (58) 
+           stepping: 9 microcode: 21 L1 cache: 64 KiB L2 cache: 3072 KiB L3 cache: 3072 KiB bogomips: 19157 
+           Speed: 1443 MHz min/max: 1200/2400 MHz Core speeds (MHz): 1: 1197 2: 1197 3: 1197 4: 1197 
+           Flags: acpi aperfmperf apic arat arch_perfmon avx bts clflush cmov constant_tsc cpuid cpuid_fault cx16 cx8 de 
+           ds_cpl dtes64 dtherm dts epb ept erms est f16c flexpriority flush_l1d fpu fsgsbase fxsr ht ibpb ibrs lahf_lm lm mca 
+           mce md_clear mmx monitor msr mtrr nonstop_tsc nopl nx pae pat pbe pcid pclmulqdq pdcm pebs pge pln pni popcnt pse 
+           pse36 pti pts rdtscp rep_good sep smep ss ssbd sse sse2 sse4_1 sse4_2 ssse3 stibp syscall tm tm2 tpr_shadow tsc 
+           tsc_deadline_timer vme vmx vnmi vpid x2apic xsave xsaveopt xtopology xtpr 
+           Vulnerabilities: Type: itlb_multihit status: KVM: Split huge pages 
+           Type: l1tf mitigation: PTE Inversion; VMX: conditional cache flushes, SMT vulnerable 
+           Type: mds mitigation: Clear CPU buffers; SMT vulnerable 
+           Type: meltdown mitigation: PTI 
+           Type: spec_store_bypass mitigation: Speculative Store Bypass disabled via prctl and seccomp 
+           Type: spectre_v1 mitigation: usercopy/swapgs barriers and __user pointer sanitization 
+           Type: spectre_v2 mitigation: Full generic retpoline, IBPB: conditional, IBRS_FW, STIBP: conditional, RSB filling 
+           Type: tsx_async_abort status: Not affected 
+Graphics:  Device-1: Intel 3rd Gen Core processor Graphics vendor: Lenovo driver: i915 v: kernel bus ID: 00:02.0 
+           chip ID: 8086:0166 
+           Display: server: X.Org 1.20.4 driver: i915 compositor: compton v: 0.1~beta2+20150922 resolution: 1366x768~60Hz 
+           OpenGL: renderer: Mesa DRI Intel Ivybridge Mobile v: 4.2 Mesa 18.3.6 compat-v: 3.0 direct render: Yes 
+Audio:     Device-1: Intel 7 Series/C216 Family High Definition Audio vendor: Lenovo driver: snd_hda_intel v: kernel 
+           bus ID: 00:1b.0 chip ID: 8086:1e20 
+           Sound Server: ALSA v: k4.19.0-8-amd64 
+Network:   Device-1: Broadcom Limited BCM4313 802.11bgn Wireless Network Adapter driver: wl v: kernel port: efa0 
+           bus ID: 02:00.0 chip ID: 14e4:4727 
+           IF: wlp2s0 state: up mac: a4:17:31:c0:12:45 
+           IP v4: 192.168.1.102/24 type: dynamic scope: global broadcast: 192.168.1.255 
+           IP v6: fe80::a617:31ff:fec0:1245/64 scope: link 
+           Device-2: Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet vendor: Lenovo driver: r8169 v: kernel port: 2000 
+           bus ID: 03:00.0 chip ID: 10ec:8168 
+           IF: enp3s0 state: down mac: 64:1c:67:60:e8:76 
+           IF-ID-1: docker0 state: down mac: 02:42:d1:ee:55:dc 
+           IP v4: 172.17.0.1/16 scope: global broadcast: 172.17.255.255 
+           IF-ID-2: vboxnet0 state: down mac: 0a:00:27:00:00:00 
+           WAN IP: 45.234.212.246 
+Drives:    Local Storage: total: 465.76 GiB used: 307.25 GiB (66.0%) 
+           ID-1: /dev/sda vendor: Seagate model: ST500LM012 HN-M500MBB size: 465.76 GiB block size: physical: 4096 B 
+           logical: 512 B speed: 3.0 Gb/s rotation: 5400 rpm serial: S2YJJ9CD521864 rev: 0002 temp: 48 C scheme: MBR 
+           Optical-1: /dev/sr0 vendor: HL-DT-ST model: DVDRAM GT80N rev: LN80 dev-links: cdrom,cdrw,dvd,dvdrw 
+           Features: speed: 24 multisession: yes audio: yes dvd: yes rw: cd-r,cd-rw,dvd-r,dvd-ram state: running 
+RAID:      Message: No RAID data was found. 
+Partition: ID-1: / raw size: 202.15 GiB size: 197.97 GiB (97.94%) used: 175.74 GiB (88.8%) fs: ext4 block size: 4096 B 
+           dev: /dev/sda3 label: N/A uuid: 068f535b-0f6c-45bb-a6a5-ec316885ad01 
+           ID-2: /media/glaulher/F4C27254C2721B56 raw size: 155.27 GiB size: 155.27 GiB (100.00%) used: 131.52 GiB (84.7%) 
+           fs: ntfs block size: 4096 B dev: /dev/sda5 label: N/A uuid: F4C27254C2721B56 
+Unmounted: ID-1: /dev/sda1 size: 500.0 MiB fs: ntfs label: Reservado pelo Sistema uuid: 2AF2A72EF2A6FD67 
+           ID-2: /dev/sda2 size: 107.85 GiB fs: ntfs label: N/A uuid: F8582054582013C2 
+           ID-3: /dev/sda4 size: 1 KiB fs: N/A label: N/A uuid: N/A 
+USB:       Hub: 1-0:1 info: Full speed (or root) Hub ports: 3 rev: 2.0 speed: 480 Mb/s chip ID: 1d6b:0002 
+           Hub: 1-1:2 info: Intel Integrated Rate Matching Hub ports: 6 rev: 2.0 speed: 480 Mb/s chip ID: 8087:0024 
+           Device-1: 1-1.3:3 info: Upek Biometric Touchchip/Touchstrip Fingerprint Sensor type: <vendor specific> driver: N/A 
+           interfaces: 1 rev: 1.0 speed: 12 Mb/s chip ID: 147e:1002 
+           Device-2: 1-1.4:4 info: Broadcom type: <vendor specific> driver: btusb interfaces: 4 rev: 2.0 speed: 12 Mb/s 
+           chip ID: 0a5c:21f4 serial: A41731C01246 
+           Device-3: 1-1.5:5 info: Acer type: Video driver: uvcvideo interfaces: 2 rev: 2.0 speed: 480 Mb/s chip ID: 5986:0295 
+           Hub: 2-0:1 info: Full speed (or root) Hub ports: 4 rev: 2.0 speed: 480 Mb/s chip ID: 1d6b:0002 
+           Hub: 3-0:1 info: Full speed (or root) Hub ports: 3 rev: 2.0 speed: 480 Mb/s chip ID: 1d6b:0002 
+           Hub: 3-1:2 info: Intel Integrated Rate Matching Hub ports: 8 rev: 2.0 speed: 480 Mb/s chip ID: 8087:0024 
+           Device-4: 3-1.6:3 info: Alcor Micro Multi Flash Reader type: Mass Storage driver: usb-storage interfaces: 1 
+           rev: 2.0 speed: 480 Mb/s chip ID: 058f:6366 serial: 058F63666435 
+           Hub: 4-0:1 info: Full speed (or root) Hub ports: 4 rev: 3.0 speed: 5 Gb/s chip ID: 1d6b:0003 
+Sensors:   System Temperatures: cpu: 60.0 C mobo: 48.0 C 
+           Fan Speeds (RPM): cpu: 0 
+Repos:     Active apt repos in: /etc/apt/sources.list 
+           1: deb http://deb.debian.org/debian/ buster main non-free contrib
+           2: deb-src http://deb.debian.org/debian/ buster main non-free contrib
+           3: deb http://security.debian.org/debian-security buster/updates main contrib non-free
+           4: deb-src http://security.debian.org/debian-security buster/updates main contrib non-free
+           5: deb http://deb.debian.org/debian/ buster-updates main contrib non-free
+           6: deb-src http://deb.debian.org/debian/ buster-updates main contrib non-free
+           7: deb http://deb.debian.org/debian/ buster-backports main contrib non-free
+           8: deb-src http://deb.debian.org/debian/ buster-backports main contrib non-free
+           9: deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main
+           10: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+           No active apt repos in: /etc/apt/sources.list.d/nodesource.list 
+           Active apt repos in: /etc/apt/sources.list.d/virtualbox.list 
+           1: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bionic contrib
+Processes: CPU top: 5 
+           1: cpu: 36.6% command: virtualboxvm pid: 32546 mem: 2207.9 MiB (29.2%) 
+           2: cpu: 7.0% command: pulseaudio pid: 1437 mem: 19.9 MiB (0.2%) 
+           3: cpu: 3.3% command: chromium pid: 6157 mem: 299.9 MiB (3.9%) 
+           4: cpu: 2.9% command: xorg pid: 1387 mem: 76.4 MiB (1.0%) 
+           5: cpu: 1.9% command: chromium pid: 7424 mem: 198.6 MiB (2.6%) 
+           Memory top: 5 
+           1: mem: 2207.9 MiB (29.2%) command: virtualboxvm pid: 32546 cpu: 36.6% 
+           2: mem: 299.9 MiB (3.9%) command: chromium pid: 6157 cpu: 3.3% 
+           3: mem: 265.5 MiB (3.5%) command: chromium pid: 16292 cpu: 0.9% 
+           4: mem: 258.6 MiB (3.4%) command: chromium pid: 6096 cpu: 1.6% 
+           5: mem: 248.8 MiB (3.2%) command: chromium pid: 23686 cpu: 0.9% 
+Info:      Processes: 220 Uptime: 12h 21m Init: systemd v: 241 runlevel: 5 Compilers: gcc: 8.3.0 alt: 8 Shell: bash (sudo) 
+           v: 5.0.3 running in: x-terminal-emul inxi: 3.0.32 
