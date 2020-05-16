@@ -1,5 +1,5 @@
 #!/bin/bash
-
+ 
 # =======================
 # Define Colors
 RED='\e[41m'
@@ -19,7 +19,7 @@ INSTALLINGRNG1MSG="Installing ranger to manage files"
 CLIFMNOTINSTMSG="No cli filemanager is installed and Apt seems to be in use"
 # Task Manager (bashtop)
 INSTALLINGTASKMANMSG="Installing htop to manage tasks"
-TASKMANNOTINSTMSG="Bashtop is not installed and Pacman seems to be in use"
+TASKMANNOTINSTMSG="Htop is not installed and Apt seems to be in use"
 # File Search (Rifle)
 RIFLENOTINSTMSG="Rifle is not installed and Apt seems to be in use"
 # Web Browser (Links)
@@ -38,108 +38,125 @@ CPUPOWERNOTINSTMSG="cpupower is not installed and Apt seems to be in use"
 # cmus
 INSTALLINGCMUSMSG="Installing cmus to play music"
 CMUSNOTINSTMSG="cmus is not installed and Apt seems to be in use"
+# ncdu
+INSTALLINGNCDUMSG="Installing ncdu to disk usage"
+NCDUNOTINSTMSG="ncdu is not installed and Apt seems to be in use"
+
 
 # =======================
 # Main Menu functions
 # 
-function package_manager_ui {
-  echo "------------" 
-  echo -e "$BLUE $UPDATEMSG $NC" 
-  echo "------------" 	
-  if [ -e /usr/bin/ ] # If file exists
-  then
-    sudo  update && sudo  full-upgrade -y # Run it
-  fi
+#upgrade_and_update
+function upgrade {
+	if [ -e /usr/bin/apt ] # If file exists
+	then
+		echo "------------" 
+		echo -e "$BLUE $UPDATEMSG $NC" 
+		echo "------------" 
+
+		if [ $(ps aux | grep apt | wc -l) -gt 1 ]   
+		then
+			echo -e " $RED Apt is used. To return to ToolBox press ENTER $NC"
+            read -r
+		else
+		sudo apt update && sudo apt full-upgrade -y # Run it
+		echo -e " $BLUE Packages update. To return to ToolBox press ENTER $NC"
+        read -r
+		fi
+    fi
+}
+
+# System Information
+function sysinfo {
+	if [ -e /usr/bin/inxi ]
+	then
+		sudo inxi -v8 | tee .inxi.txt &>/dev/null
+		printf '\33[H\33[2J'
+		< .inxi.txt fzf -i --multi --reverse --inline-info --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " # --no-unicode
+		rm -rf .inxi.txt
+	else
+		echo "$INSTALLINGINXIMSG"
+		echo "$INXINOTINSTMSG"
+		sudo apt install inxi fzf -y inxi && inxi -v8 | fzf -i --multi --reverse --info=inline --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " # --no-unicode
+    fi
+}
+
+#ncdu
+function disk_usage() {
+	if [ -e /usr/bin/ncdu ]
+	then
+		sudo ncdu -x /
+        ncdu 
+	else
+		echo "$INSTALLINGNCDUMSG"
+		echo "$NCDUNOTINSTMSG"
+		sudo apt install ncdu && ncdu
+    fi
 }
 
 # File Manager
 function cli_filemanager {
 	if [ -e /usr/bin/ranger ]
-  then
-    echo -e " $RED Press $BG Q $NC$RED to return to ToolBox $NC"
-    sleep 2
+	then
+		echo -e " $RED Press $BG Q $NC$RED to return to ToolBox $NC"
+		sleep 1
 		ranger
 	elif [ -e /usr/bin/mc ]
-  then
+	then
 		mc
 	else		
-			echo "$CLIFMNOTINSTMSG"
-		
-			sudo  install -y ranger && ranger
+		echo "$CLIFMNOTINSTMSG"
+		sudo apt install -y ranger && ranger
     fi
 }
 
 # Web Browser
 function cli_browser {
 	if [ -e /usr/bin/links ]
-  then
+	then
 		links
 	elif [ -e /usr/bin/elinks ]
-  then
+	then
 		elinks
 	elif [ -e /usr/bin/w3m ]
-  then
+	then
         echo "$CLIBROWSW3MTMSG"
         sleep 2
 		w3m -v
 	elif [ -e /usr/bin/lynx ]
-  then
+	then
 		lynx
 	else
-            echo "$INSTALLINGCLIBRWOSMSG"		
-			echo "$CLIBROWSNOTINSTMSG"		
-			sudo  install -y links && links		
+        echo "$INSTALLINGCLIBRWOSMSG"		
+		echo "$CLIBROWSNOTINSTMSG"		
+		sudo apt install -y links && links		
 	fi
 }
 
 # File Search
 function file_finder {
 	if [ -e /usr/bin/rifle ]
-  then
+	then
 		rifle "$(find -type f | fzf -e --reverse --prompt="Enter string > " --header="ESC to quit. ")"
 	else
 		echo "$INSTALLINGRNG1MSG"		
-		echo "$RIFLENOTINSTMSG"	
-		
-		sudo apt install fzf ranger -y && rifle "$(find -type f | fzf -e --reverse --prompt="Enter string > " --header="ESC to quit. ")"
-		
+		echo "$RIFLENOTINSTMSG"			
+		sudo apt install fzf ranger -y && rifle "$(find -type f | fzf -e --reverse --prompt="Enter string > " --header="ESC to quit. ")"		
 	fi
 }
 
 # Taskmanager
 function taskmanager {
 	if [ -e /usr/bin/htop ]
-  then
+	then
 		htop
 	else
 		echo "$INSTALLINGTASKMANMSG"
-    if [ -e /var/lib/Apt/db.lck ]
-    then
-      echo "$TASKMANNOTINSTMSG"
-    else
-		  sudo apt install htop -y && htop
+		echo "$TASKMANNOTINSTMSG"
+		sudo apt install htop -y && htop
     fi
-	fi
 }
 
-# System Information
-function sysinfo {
-  if [ -e /usr/bin/inxi ]
-  then
-    sudo inxi -v8 | tee .inxi.txt &>/dev/null
-    printf '\33[H\33[2J'
-    < .inxi.txt fzf -i --multi --reverse --inline-info --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " # --no-unicode
-    rm -rf .inxi.txt
-	else
-		echo "$INSTALLINGINXIMSG"
-    if [ -e /var/lib/Apt/db.lck ]
-    then
-      echo "$INXINOTINSTMSG"
-    else
-		  sudo apt install inxi fzf -y inxi && inxi -v8 | fzf -i --multi --reverse --info=inline --prompt="Enter string > " --header="TAB key to (un)select. ENTER to view selection. ESC to quit. " # --no-unicode
-    fi
-	fi
-}
 
 # Cpupower frequency-info
 function freqinfo() {
@@ -155,7 +172,7 @@ function freqinfo() {
     then
       echo "$CPUPOWERNOTINSTMSG"
     else
-    	sudo Apt -Sy cpupower && cpupower frequency-info
+    	sudo apt install linux-cpupower && cpupower frequency-info
       echo
       echo -e " $RED Displaying frequency-info. To return to ToolBox press ENTER $NC"
       read -r
@@ -165,21 +182,19 @@ function freqinfo() {
 
 # Music Player
 function music() {
-  if [ -e /usr/bin/cmus ]
-  then
-    echo -e " $RED Press $BG 1-7 $NC$RED to navigate and $BG Q $NC$RED to return to ToolBox $NC"
-    sleep 3
-    cmus
-  else
-    echo "$INSTALLINGCMUSMSG"
-    if [ -e /var/lib/Apt/db.lck ]
-    then
-      echo "$CMUSNOTINSTMSG"
-    else
-    	sudo apt -Sy cmus && cmus
+	if [ -e /usr/bin/cmus ]
+	then
+		echo -e " $RED Press $BG 1-7 $NC$RED to navigate and $BG Q $NC$RED to return to ToolBox $NC"
+		sleep 3
+		cmus
+	else
+		echo "$INSTALLINGCMUSMSG"
+		echo "$CMUSNOTINSTMSG"
+		sudo apt install cmus && cmus
     fi
-  fi
 }
+
+
 
 # Check if a website is up via https://isitup.org/
 function geturl() {
@@ -188,7 +203,7 @@ function geturl() {
 
 function isitup() {
   echo -e "Please type in the URL and press ENTER"
-  echo -e "For example: \e[7mforum.manjaro.org\e[0m"
+  echo -e "For example: \e[7mduckduckgo.com\e[0m"
   read -p 'URL: ' uservar
   echo ""
   echo -e "\e[1m $(geturl) \e[0m"
@@ -242,7 +257,7 @@ function main {
 E0="\e[1mQ\e[0muit"
 E1="\e[1mP\e[0mackage update"
 E2="System \e[1mI\e[0mnformation"
-E3="\e[1mH\e[0mardware and Drivers"
+E3="\e[1mD\e[0misk Usage"
 E4="\e[1mF\e[0mile Manager"
 E5="\e[1mW\e[0meb Browser"
 E6="File \e[1mS\e[0mearch"
@@ -262,11 +277,11 @@ do
     printf '\33[H\33[2J' # Use this instead of the clear command
 
     echo
-    echo -e "                      $BG$TC T $NC$BG$TC O $NC$BG$TC O $NC$BG$TC L $NC $BG B $NC $BG O $NC $BG X $NC"
+    echo -e "                      $BG$TC T $NC$BG$TC O $NC$BG$TC O $NC$BG$TC L $NC $BG B $NC $BG O $NC $BG X $NC $BG D $NC $BG E $NC $BG B $NC"
     echo -e " $TC+----------------------------------------------------------------+$NC"
     echo -e " $TC|$NC    $BG 1 $NC $E1          $TC|$NC    $BG 2 $NC $E2     $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
-    echo -e " $TC|$NC    $BG 3 $NC $E3    $TC|$NC    $BG 4 $NC $E4           $TC|$NC"
+    echo -e " $TC|$NC    $BG 3 $NC $E3              $TC|$NC    $BG 4 $NC $E4           $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
     echo -e " $TC|$NC    $BG 5 $NC $E5             $TC|$NC    $BG 6 $NC $E6            $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
@@ -288,7 +303,7 @@ do
     case "$choice" in
 
         1|P|p )
-            package_manager_ui
+            upgrade
             ;;
         2|I|i )
             printf '\33[H\33[2J'
@@ -299,7 +314,12 @@ do
             read -r
             ;;
         3|H|h )
-            mhwd-tui
+            printf '\33[H\33[2J'
+            disk_usage
+            echo
+            echo -e " $RED To return to ToolBox press ENTER $NC"
+            # wait for input, e.g. by pressing ENTER:
+            read -r
             ;;
         4|F|f )
             printf '\33[H\33[2J'
@@ -319,7 +339,7 @@ do
             echo
             ;;
         7 )
-            system-menu
+            ~/Downloads/teste/toolbox-master/bin/system-menu
             ;;
         8|L|l )
             printf '\33[H\33[2J'
