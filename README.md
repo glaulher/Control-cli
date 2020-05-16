@@ -1,16 +1,6 @@
+This project is fork - https://forum.manjaro.org/t/manjaro-cli-menu/129017
+
 # ToolBox
-Collection of terminal applications for Manjaro and Arch based Systems (Bash TUI).
+terminal applications for Debian (Bash TUI).
 - https://forum.manjaro.org/t/manjaro-cli-menu/129017
 
-How to install:
-- ```sudo pacman -Syu base-devel git```
-- ```git clone https://github.com/puxplaying/toolbox.git```
-- ```cd toolbox```
-- ```makepkg -srci```
-
-How to run:
-- ```toolbox```
-
----
-
-![alt text](https://github.com/puxplaying/toolbox/blob/master/1.png)
