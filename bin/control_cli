@@ -15,18 +15,18 @@ TC='\e[1m' # Highlighting Text color
 ERRORMSG="$RED Wrong option $NC"
 TRYAGAINMSG=" Please try again..."
 # File Manager (Ranger)
-INSTALLINGRNG1MSG="Installing ranger to manage files"
-CLIFMNOTINSTMSG="No cli filemanager is installed and Apt seems to be in use"
+#INSTALLINGRNG1MSG="Installing ranger to manage files"
+#CLIFMNOTINSTMSG="No cli filemanager is installed and Apt seems to be in use"
 # Task Manager (bashtop)
 INSTALLINGTASKMANMSG="Installing htop to manage tasks"
 TASKMANNOTINSTMSG="Htop is not installed and Apt seems to be in use"
 # File Search (Rifle)
 RIFLENOTINSTMSG="Rifle is not installed and Apt seems to be in use"
 # Web Browser (Links)
-INSTALLINGCLIBRWOSMSG="Installing links to surf the web"
-CLIBROWSNOTINSTMSG="No cli browser installed and  seems to be in use"
+#INSTALLINGCLIBRWOSMSG="Installing links to surf the web"
+#CLIBROWSNOTINSTMSG="No cli browser installed and  seems to be in use"
 # Web Brouser (w3m)
-CLIBROWSW3MTMSG="Shift + u: Enter new address. q: Exit"
+#CLIBROWSW3MTMSG="Shift + u: Enter new address. q: Exit"
 # 
 UPDATEMSG="Update packages"
 # inxi
@@ -36,8 +36,8 @@ INXINOTINSTMSG="inxi is not installed and Apt seems to be in use"
 INSTALLINGCPUPOWERMSG="Installing cpupower to display frequency-info"
 CPUPOWERNOTINSTMSG="cpupower is not installed and Apt seems to be in use"
 # cmus
-INSTALLINGCMUSMSG="Installing cmus to play music"
-CMUSNOTINSTMSG="cmus is not installed and Apt seems to be in use"
+#INSTALLINGCMUSMSG="Installing cmus to play music"
+#CMUSNOTINSTMSG="cmus is not installed and Apt seems to be in use"
 # ncdu
 INSTALLINGNCDUMSG="Installing ncdu to disk usage"
 NCDUNOTINSTMSG="ncdu is not installed and Apt seems to be in use"
@@ -95,43 +95,43 @@ function disk_usage() {
 }
 
 # File Manager
-function cli_filemanager {
-	if [ -e /usr/bin/ranger ]
-	then
-		echo -e " $RED Press $BG Q $NC$RED to return to ToolBox $NC"
-		sleep 1
-		ranger
-	elif [ -e /usr/bin/mc ]
-	then
-		mc
-	else		
-		echo "$CLIFMNOTINSTMSG"
-		sudo apt install -y ranger && ranger
-    fi
-}
+#function cli_filemanager {
+#	if [ -e /usr/bin/ranger ]
+#	then
+#		echo -e " $RED Press $BG Q $NC$RED to return to ToolBox $NC"
+#		sleep 1
+#		ranger
+#	elif [ -e /usr/bin/mc ]
+#	then
+#		mc
+#	else		
+#		echo "$CLIFMNOTINSTMSG"
+#		sudo apt install -y ranger && ranger
+#    fi
+#}
 
 # Web Browser
-function cli_browser {
-	if [ -e /usr/bin/links ]
-	then
-		links
-	elif [ -e /usr/bin/elinks ]
-	then
-		elinks
-	elif [ -e /usr/bin/w3m ]
-	then
-        echo "$CLIBROWSW3MTMSG"
-        sleep 2
-		w3m -v
-	elif [ -e /usr/bin/lynx ]
-	then
-		lynx
-	else
-        echo "$INSTALLINGCLIBRWOSMSG"		
-		echo "$CLIBROWSNOTINSTMSG"		
-		sudo apt install -y links && links		
-	fi
-}
+#function cli_browser {
+#	if [ -e /usr/bin/links ]
+#	then
+#		links
+#	elif [ -e /usr/bin/elinks ]
+#	then
+#		elinks
+#	elif [ -e /usr/bin/w3m ]
+#	then
+#        echo "$CLIBROWSW3MTMSG"
+#        sleep 2
+#		w3m -v
+#	elif [ -e /usr/bin/lynx ]
+#	then
+#		lynx
+#	else
+#        echo "$INSTALLINGCLIBRWOSMSG"		
+#		echo "$CLIBROWSNOTINSTMSG"		
+#		sudo apt install -y links && links		
+#	fi
+#}
 
 # File Search
 function file_finder {
@@ -159,40 +159,40 @@ function taskmanager {
 
 
 # Cpupower frequency-info
-function freqinfo() {
-  if [ -e /usr/bin/cpupower ]
-  then
-    cpupower frequency-info
-    echo
-    echo -e " $RED Displaying frequency-info. To return to ToolBox press ENTER $NC"
-    read -r
-  else
-    echo "$INSTALLINGCPUPOWERMSG"
-    if [ -e /var/lib/Apt/db.lck ]
-    then
-      echo "$CPUPOWERNOTINSTMSG"
-    else
-    	sudo apt install linux-cpupower && cpupower frequency-info
-      echo
-      echo -e " $RED Displaying frequency-info. To return to ToolBox press ENTER $NC"
-      read -r
-    fi
-  fi
-}
+#function freqinfo() {
+#  if [ -e /usr/bin/cpupower ]
+#  then
+#    cpupower frequency-info
+#    echo
+#    echo -e " $RED Displaying frequency-info. To return to ToolBox press ENTER $NC"
+#    read -r
+#  else
+#    echo "$INSTALLINGCPUPOWERMSG"
+#    if [ -e /var/lib/Apt/db.lck ]
+#    then
+#      echo "$CPUPOWERNOTINSTMSG"
+#    else
+#    	sudo apt install linux-cpupower && cpupower frequency-info
+#      echo
+#      echo -e " $RED Displaying frequency-info. To return to ToolBox press ENTER $NC"
+#      read -r
+#    fi
+#  fi
+#}
 
 # Music Player
-function music() {
-	if [ -e /usr/bin/cmus ]
-	then
-		echo -e " $RED Press $BG 1-7 $NC$RED to navigate and $BG Q $NC$RED to return to ToolBox $NC"
-		sleep 3
-		cmus
-	else
-		echo "$INSTALLINGCMUSMSG"
-		echo "$CMUSNOTINSTMSG"
-		sudo apt install cmus && cmus
-    fi
-}
+#function music() {
+#	if [ -e /usr/bin/cmus ]
+#	then
+#		echo -e " $RED Press $BG 1-7 $NC$RED to navigate and $BG Q $NC$RED to return to ToolBox $NC"
+#		sleep 3
+#		cmus
+#	else
+#		echo "$INSTALLINGCMUSMSG"
+#		echo "$CMUSNOTINSTMSG"
+#		sudo apt install cmus && cmus
+#    fi
+#}
 
 
 
@@ -216,38 +216,6 @@ function randArrayElement() {
   echo -e "${arr["$((RANDOM % ${#arr[@]}))"]}"
 }
 
-# =======================
-# Sub Menu's
-# Startmenu for releasecompare
-function releasecompare_startmenu() {
-  echo ""
-  echo -e "$BLUE This tool will compare the latest Manjaro release to the local system $NC"
-  echo -e "$BLUE to see which applications may have been added to new releases! $NC"
-  echo ""
-  echo -e "$ORANGE Chose what to do! $NC"
-  echo ""
-  echo "  1) Compare only"
-  echo "  2) Installation Options"
-  echo "  0) Quit"
-read -r -n 1 -e choice
-case "$choice" in
-        1)
-            echo "you chose to compare only"
-            releasecompare
-            ;;
-        2)
-            echo "you chose Installation Options"
-            releasecompare install
-            ;;
-        0|3|q|quit)
-            #
-            ;;
-        * ) # do this, if $choice variable contains anything else not offered above
-            echo -e "$ERRORMSG"
-            sleep 2
-            ;;
-    esac
-}
 
 # =======================
 # Main UI code is below
@@ -258,17 +226,12 @@ E0="\e[1mQ\e[0muit"
 E1="\e[1mP\e[0mackage update"
 E2="System \e[1mI\e[0mnformation"
 E3="\e[1mD\e[0misk Usage"
-E4="\e[1mF\e[0mile Manager"
-E5="\e[1mW\e[0meb Browser"
-E6="File \e[1mS\e[0mearch"
-E7="System & Settings"
-E8="Translate Shel\e[1ml\e[0m"
-E9="Manjaro \e[1mR\e[0melease Compare"
-E10="\e[1mT\e[0mask Manager"
-E11="\e[1mC\e[0mpu Frequency Info"
-E12="System \e[1mD\e[0miagnosis"
-E13="Website Status Check"
-E14="\e[1mM\e[0music Player"
+E4="File \e[1mS\e[0mearch"
+E5="System & Settings"
+E6="Translate Shel\e[1ml\e[0m"
+E7="\e[1mT\e[0mask Manager"
+E8="Website Status Check"
+
 
 # Run infinite loop for UI / menu, till the user quits using the "quit" option or CTRL+C.
 while true
@@ -277,21 +240,15 @@ do
     printf '\33[H\33[2J' # Use this instead of the clear command
 
     echo
-    echo -e "                      $BG$TC T $NC$BG$TC O $NC$BG$TC O $NC$BG$TC L $NC $BG B $NC $BG O $NC $BG X $NC $BG D $NC $BG E $NC $BG B $NC"
+    echo -e "                 $BG$TC C $NC$BG$TC O $NC$BG$TC N $NC$BG$TC T $NC$BG$TC R $NC$BG$TC O $NC$BG$TC L $NC $BG C $NC $BG L $NC $BG I $NC"
     echo -e " $TC+----------------------------------------------------------------+$NC"
     echo -e " $TC|$NC    $BG 1 $NC $E1          $TC|$NC    $BG 2 $NC $E2     $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
-    echo -e " $TC|$NC    $BG 3 $NC $E3              $TC|$NC    $BG 4 $NC $E4           $TC|$NC"
+    echo -e " $TC|$NC    $BG 3 $NC $E3              $TC|$NC    $BG 4 $NC $E4            $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
-    echo -e " $TC|$NC    $BG 5 $NC $E5             $TC|$NC    $BG 6 $NC $E6            $TC|$NC"
+    echo -e " $TC|$NC    $BG 5 $NC $E5       $TC|$NC    $BG 6 $NC $E6        $TC|$NC"
     echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
-    echo -e " $TC|$NC    $BG 7 $NC $E7 $NC      $TC|$NC    $BG 8 $NC $E8        $TC|$NC"
-    echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
-    echo -e " $TC|$NC    $BG 9 $NC $E9 $TC|$NC    $BG T $NC $E10           $TC|$NC"
-    echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
-    echo -e " $TC|$NC    $BG C $NC $E11      $TC|$NC    $BG D $NC $E12       $TC|$NC"
-    echo -e " $TC|$NC--------------------------------$TC|$NC-------------------------------$TC|$NC"
-    echo -e " $TC|$NC    $BG U $NC $E13    $TC|$NC    $BG M $NC $E14           $TC|$NC"
+    echo -e " $TC|$NC    $BG 7 $NC $E7            $TC|$NC    $BG 8 $NC $E8   $TC|$NC"
     echo -e " $TC+----------------------------------------------------------------+$NC"
     echo ""
     echo -e "  Enter marked number or letter   -    $BG 0 $NC $E0 "
@@ -302,7 +259,7 @@ do
     # test, whether "choice" fits any of the following numbers or letters
     case "$choice" in
 
-        1|P|p )
+		1|P|p )
             upgrade
             ;;
         2|I|i )
@@ -323,59 +280,29 @@ do
             ;;
         4|F|f )
             printf '\33[H\33[2J'
-            cli_filemanager
-            ;;
-        5|W|w )
-            printf '\33[H\33[2J'
-            cli_browser
-            echo
-            echo -e " $RED Displaying Web Browser. To return to ToolBox press ENTER $NC"
-            # wait for input, e.g. by pressing ENTER:
-            read -r
-            ;;
-        6|S|s )
             cd
             file_finder
             echo
             ;;
-        7 )
-            ~/Downloads/teste/toolbox-master/bin/system-menu
+        5|W|w )
+            printf '\33[H\33[2J'
+            ~/Documentos/shell/toolbox/bin/system-menu
             ;;
-        8|L|l )
+		6|S|s )
             printf '\33[H\33[2J'
             gawk -f <(curl -Ls git.io/translate) -- -shell
             ;;
-        9|R|r )
-            printf '\33[H\33[2J'
-            releasecompare_startmenu
-            cd
-            echo
-            echo -e " $RED Displaying Releasecompare. To return to ToolBox press ENTER $NC"
-            # wait for input, e.g. by pressing ENTER:
-            read -r
-            ;;
-        T|t )
+        7|T|t )
             printf '\33[H\33[2J'
             taskmanager
             ;;
-        C|c )
-            printf '\33[H\33[2J'
-            freqinfo
-            ;;
-        D|d )
-            diagnosis-menu
-            ;;
-        U|u )
+        8|U|u )
             printf '\33[H\33[2J'
             isitup
             echo
             echo -e " $RED Displaying Website Status Check. To return to ToolBox press ENTER $NC"
             read -r
-            ;;
-        M|m )
-            printf '\33[H\33[2J'
-            music
-            ;;
+            ;;   
         + )
             printf '\33[H\33[2J'
             randArrayElement "ARRAYISO[@]"
